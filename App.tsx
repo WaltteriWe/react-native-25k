@@ -1,9 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
 import {Platform, SafeAreaView, StyleSheet, Text} from 'react-native';
-
+import Home from './src/views/Home';
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Home />
       <Text>Hello, React Native!</Text>
       <StatusBar style="auto" />
     </SafeAreaView>
