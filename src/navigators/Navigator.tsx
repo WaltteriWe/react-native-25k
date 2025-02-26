@@ -3,16 +3,35 @@ import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Single from '../components/Single';
+import Single from '../views/Single';
+import {Icon} from '@rneui/themed';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
-      <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName: string = '';
+          if (route.name === 'My Media') {
+            iconName = focused ? 'home-filled' : 'home';
+          } else if (route.name === 'My Profile') {
+            iconName = focused ? 'person-outline' : 'person-outline';
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'blue',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen
+        name="My Media"
+        component={Home}
+        // options={{headerShown: false}}
+      />
+      <Tab.Screen name="My Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
