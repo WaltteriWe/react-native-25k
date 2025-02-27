@@ -1,18 +1,17 @@
-import {RouteProp} from '@react-navigation/native';
 import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text} from 'react-native';
 import {Video} from 'expo-av';
 import {Card, Icon, ListItem} from '@rneui/base';
 
+// TODO: check route prop type
 const Single = ({route}: any) => {
   const item: MediaItemWithOwner = route.params.item;
 
   return (
     <ScrollView>
       <Card>
-        <ListItem>
-          <Text>{item.title}</Text>
-        </ListItem>
+        <Card.Title>{item.title}</Card.Title>
+
         {item.media_type.includes('image') ? (
           <Image style={styles.image} src={item.filename} />
         ) : (
@@ -23,25 +22,24 @@ const Single = ({route}: any) => {
           />
         )}
         <ListItem>
+          <Icon name="today" />
           <Text>{new Date(item.created_at).toLocaleString('fi-FI')}</Text>
         </ListItem>
         {/* <Likes item={item} /> */}
         <ListItem>
-          <Icon name="description" type="fontawesome6" />
           <Text>{item.description}</Text>
         </ListItem>
-
         <ListItem>
-          <Icon name="person" type="fontawesome6" />
-          <Text>Owner: {item.username}</Text>
+          <Icon name="inventory" />
+          <Text>{item.media_type}</Text>
         </ListItem>
         <ListItem>
-          <Icon name="inventory" type="fontawesome6" />
-          <Text>Type: {item.media_type}</Text>
+          <Icon name="person" />
+          <Text>{item.username}</Text>
         </ListItem>
         <ListItem>
-          <Icon name="image" type="fontawesome6" />
-          <Text>Size: {Math.round(item.filesize / 1024)} kB</Text>
+          <Icon name="image" />
+          <Text>{Math.round(item.filesize / 1024)} kB</Text>
         </ListItem>
         {/* <Comments item={item} /> */}
       </Card>
@@ -50,11 +48,6 @@ const Single = ({route}: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#5a5',
-    marginBottom: 10,
-  },
   image: {height: 400},
 });
 

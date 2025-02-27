@@ -16,15 +16,15 @@ import {
   UserResponse,
 } from 'hybrid-types/MessageTypes';
 
-const useMedia = () => {
+const useMedia = (id?: number) => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
-
+  const url = id ? '/media/byuser/' + id : '/media';
   useEffect(() => {
     const getMedia = async () => {
       try {
         // kaikki mediat ilman omistajan tietoja
         const media = await fetchData<MediaItem[]>(
-          process.env.EXPO_PUBLIC_MEDIA_API + '/media',
+          process.env.EXPO_PUBLIC_MEDIA_API + url,
         );
         // haetaan omistajat id:n perusteella
         const mediaWithOwner: MediaItemWithOwner[] = await Promise.all(
@@ -81,7 +81,7 @@ const useMedia = () => {
       body: JSON.stringify(media),
     };
     return await fetchData<MessageResponse>(
-      process.env.EXPO_PUBLIC + '/media',
+      process.env.EXPO_PUBLIC_MEDIA_API + '/media',
       options,
     );
   };
@@ -205,7 +205,7 @@ const useComment = () => {
       body: JSON.stringify({media_id, comment_text}),
     };
     return await fetchData<MessageResponse>(
-      process.env.EXPO_PUBLIC + '/comments',
+      process.env.EXPO_PUBLIC_MEDIA_API + '/comments',
       options,
     );
   };
@@ -213,7 +213,7 @@ const useComment = () => {
   const getCommentsByMediaId = async (media_id: number) => {
     // Send a GET request to /comments/bymedia/:media_id to get the comments.
     const comments = await fetchData<Comment[]>(
-      process.env.EXPO_PUBLIC + '/comments/bymedia/' + media_id,
+      process.env.EXPO_PUBLIC_MEDIA_API + '/comments/bymedia/' + media_id,
     );
     // Send a GET request to auth api and add username to all comments
     const commentsWithUsername = await Promise.all<
@@ -243,7 +243,7 @@ const useLike = () => {
       body: JSON.stringify({media_id}),
     };
     return await fetchData<MessageResponse>(
-      process.env.EXPO_PUBLIC + '/likes',
+      process.env.EXPO_PUBLIC_MEDIA_API + '/likes',
       options,
     );
   };
@@ -257,7 +257,7 @@ const useLike = () => {
       },
     };
     return await fetchData<MessageResponse>(
-      process.env.EXPO_PUBLIC + '/likes/' + like_id,
+      process.env.EXPO_PUBLIC_MEDIA_API + '/likes/' + like_id,
       options,
     );
   };
@@ -265,7 +265,7 @@ const useLike = () => {
   const getCountByMediaId = async (media_id: number) => {
     // Send a GET request to /likes/count/:media_id to get the number of likes.
     return await fetchData<{count: number}>(
-      process.env.EXPO_PUBLIC + '/likes/count/' + media_id,
+      process.env.EXPO_PUBLIC_MEDIA_API + '/likes/count/' + media_id,
     );
   };
 
@@ -278,7 +278,7 @@ const useLike = () => {
       },
     };
     return await fetchData<Like>(
-      process.env.EXPO_PUBLIC + '/likes/bymedia/user/' + media_id,
+      process.env.EXPO_PUBLIC_MEDIA_API + '/likes/bymedia/user/' + media_id,
       options,
     );
   };

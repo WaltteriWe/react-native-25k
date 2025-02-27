@@ -1,13 +1,15 @@
 import {StatusBar} from 'expo-status-bar';
-import {Platform, SafeAreaView, StyleSheet, Text} from 'react-native';
-import Home from './src/views/Home';
-import Navigator from './src/navigators/Navigator';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {UserProvider} from './src/contexts/UserContext';
+import Navigator from './src/navigators/Navigator';
+
 const App = () => {
+  console.log('App loaded!');
   return (
     <SafeAreaProvider>
-      <Navigator />
-      <Text>Hello, React Native!</Text>
+      <UserProvider>
+        <Navigator />
+      </UserProvider>
       <StatusBar style="auto" />
     </SafeAreaProvider>
   );
