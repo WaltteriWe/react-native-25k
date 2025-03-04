@@ -9,6 +9,7 @@ import {Icon} from '@rneui/base';
 import {useUserContext} from '../hooks/ContextHooks';
 import Login from '../views/Login';
 import MyFiles from '../views/MyFiles';
+import Upload from '../views/Upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,8 @@ const TabScreen = () => {
             iconName = focused ? 'home-filled' : 'home';
           } else if (route.name === 'My Profile') {
             iconName = 'person';
+          } else if (route.name === 'Upload') {
+            iconName = 'upload';
           }
           // You can return any component that you like here!
           //return <Ionicons name={iconName} size={size} color={color} />;
@@ -38,6 +41,7 @@ const TabScreen = () => {
         // options={{headerShown: false}}
       />
       <Tab.Screen name="My Profile" component={Profile} />
+      <Tab.Screen name="Upload" component={Upload} />
     </Tab.Navigator>
   );
 };
