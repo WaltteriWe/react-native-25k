@@ -10,9 +10,10 @@ import {useUserContext} from '../hooks/ContextHooks';
 import Login from '../views/Login';
 import MyFiles from '../views/MyFiles';
 import Upload from '../views/Upload';
+import {NavigatorType} from '../types/LocalTypes';
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator<NavigatorType>();
+const Stack = createNativeStackNavigator<NavigatorType>();
 
 const TabScreen = () => {
   return (
